@@ -8,7 +8,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="p-4 relative z-10">
+    <nav className="p-4 relative z-20">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-2xl sm:text-3xl font-bold">
           XII<span className="text-[#604CC3]">PPLG2</span>
@@ -51,9 +51,21 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Mobile menu with background overlay */}
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 ${
+          isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+        onClick={toggleMenu}
+      ></div>
+
       {/* Mobile menu */}
-      {isMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-md py-2 px-4">
+      <div
+        className={`md:hidden fixed top-0 right-0 h-full w-3/4 max-w-sm bg-white shadow-lg transform transition-transform duration-300 ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="p-6">
           <NavLink href="#moments" mobile>
             Moments
           </NavLink>
@@ -63,11 +75,11 @@ const Navbar = () => {
           <NavLink href="#blog" mobile>
             Blog
           </NavLink>
-          <div className="mt-4">
+          <div className="mt-6">
             <ContactButton />
           </div>
         </div>
-      )}
+      </div>
     </nav>
   );
 };
@@ -75,17 +87,17 @@ const Navbar = () => {
 const NavLink = ({ href, children, mobile }) => (
   <a
     href={href}
-    className={`hover:text-[#604CC3] font-bold relative after:absolute after:bottom-[-3px] after:left-0 after:w-0 after:h-[2px] after:bg-[#604CC3] hover:after:w-full after:transition-all after:duration-300
-      ${mobile ? "block py-2" : ""}`}
+    className={`block text-lg font-semibold text-gray-700 hover:text-[#604CC3] py-2 ${
+      mobile ? "border-b border-gray-200" : ""
+    }`}
   >
     {children}
   </a>
 );
 
 const ContactButton = () => (
-  <button className="bg-[#604CC3] text-white px-6 sm:px-10 py-2 rounded-[15px] text-sm sm:text-base hover:bg-black transition duration-500 ease-in-out transform hover:scale-110 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(96,76,195,0.7)] relative overflow-hidden">
-    <span className="absolute inset-0 bg-gradient-to-r from-purple-500 to-indigo-500 opacity-0 hover:opacity-100 transition-opacity duration-500"></span>
-    <span className="relative z-10">Contact</span>
+  <button className="w-full bg-[#604CC3] text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-black transition-all duration-300 ease-in-out transform hover:scale-105">
+    Contact
   </button>
 );
 
